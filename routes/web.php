@@ -11,4 +11,6 @@
 |
 */
 
-Route::get('/', 'OrderController@common');
+Route::get('/', function () {
+    return view('app');
+});

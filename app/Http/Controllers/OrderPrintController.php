@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\PhpWord;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\Settings;
 
 require_once storage_path('app/library/odf.php');
 
 
-class OrderController extends Controller
+class OrderPrintController extends Controller
 {
     public function common() {
         $odf = new \odf(storage_path('app/order_common.odt'));
