@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('app');
+    return view('order');
 });
+Route::post('orderPrint', 'OrderPrintController@common');

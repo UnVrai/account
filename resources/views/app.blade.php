@@ -8,6 +8,9 @@
 
 
 	<link href="css/app.css" rel="stylesheet">
+	<script src="/js/jquery-3.2.0.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/print.js"></script>
 
 	<!-- Fonts -->
 	{{--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>--}}
@@ -53,6 +56,5 @@
 	</nav>
 
 	@yield('content')
-	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

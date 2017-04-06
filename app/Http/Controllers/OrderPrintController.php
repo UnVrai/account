@@ -3,46 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Storage;
 
 require_once storage_path('app/library/odf.php');
 
 
 class OrderPrintController extends Controller
 {
-    public function common() {
+    public function common(Request $request) {
         $odf = new \odf(storage_path('app/order_common.odt'));
+        $input = $request->all();
+        $dx = [ '0' => '零',
+                '1' => '壹',
+                '2' => '贰',
+                '3' => '叁',
+                '4' => '肆',
+                '5' => '伍',
+                '6' => '陆',
+                '7' => '柒',
+                '8' => '捌',
+                '9' => '玖'];
 
-        $odf->setVars('Name', '公分石');
-        $odf->setVars('Number', '3.5方');
-        $odf->setVars('Price', '60');
-        $odf->setVars('Total', '210');
+        $serial = $input['serial'];
+        $odf->setVars('Serial', sprintf('%07s', $serial));
+        $odf->setVars('Name', $input['name']);
+        $odf->setVars('Number', $input['number'].'方');
+        $odf->setVars('Price', $input['price']);
+        $odf->setVars('Total', $input['total']);
+        $actual = $input['actual'];
+        $odf->setVars('Actual', $actual);
+
+        $actual = sprintf('%05s', $actual);
+        $odf->setVars('f', '零');
+        $odf->setVars('j', '零');
+        $odf->setVars('g', $dx[$actual[4]]);
+        $odf->setVars('s', $dx[$actual[3]]);
+        $odf->setVars('b', $dx[$actual[2]]);
+        $odf->setVars('q', $dx[$actual[1]]);
+        $odf->setVars('w', $dx[$actual[0]]);
+
+        $odf->setVars('y', date('Y'));
+        $odf->setVars('m', date('m'));
+        $odf->setVars('d', date('d'));
+        
         $odf->saveToDisk(storage_path('app/order_cache.odt'));
 
-
-//        $common_path = 'order/common/';
-//
-//        $temp = new TemplateProcessor(storage_path('app/order.doc'));
-//        $temp->setValue('Name', '公分石');
-//        $temp->setValue('Number', '3.5方');
-//        $temp->setValue('Price', '60');
-//        $temp->setValue('Total', '210');
-////        $temp->setValue('Actual', '200');
-////
-////        $temp->setValue('f', '零');
-////        $temp->setValue('j', '零');
-////        $temp->setValue('g', '零');
-////        $temp->setValue('s', '零');
-////        $temp->setValue('b', '贰');
-////        $temp->setValue('q', '零');
-////        $temp->setValue('w', '零');
-////
-////        $temp->setValue('Year', date('Y'));
-////        $temp->setValue('Month', date('m'));
-////        $temp->setValue('Day', date('d'));
-//
-//        $temp->saveAs(storage_path('app/order_cache.doc'));
         word2pdf(storage_path('app/order_cache.odt'), public_path('order/common/order.pdf'));
-        return view('testprint');
+        return 'success';
     }
 
 }
