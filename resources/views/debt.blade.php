@@ -19,6 +19,8 @@
                                 </ul>
                             </div>
                         @endif
+                        <div style="margin-right: 50px;width: 300px; height: 500px; float: left; overflow: auto" id="debtors">
+                        </div>
                         <div style="width: 250px;float: left">
                             <form id="order" method="post">
                                 {{ csrf_field() }}
@@ -49,8 +51,6 @@
                             </form>
                             <button class="btn btn-lg btn-primary" onclick="save()">打印</button>
                             <iframe id="iPrint" style="height: 0; width: 0; border: 0"></iframe>
-                        </div>
-                        <div style="margin-left: 50px;width: 250px; float: left" id="debtors">
                         </div>
                     </div>
                 </div>

@@ -52,9 +52,10 @@ class OrderPrintController extends Controller
         
         $odf->saveToDisk(storage_path('app/order_cache.odt'));
 
-        word2pdf(storage_path('app/order_cache.odt'), public_path('order/common/order.pdf'));
+        $path = 'storage/order.pdf';
+        word2pdf(storage_path('app/order_cache.odt'), public_path($path));
         DB::table('common')->where('id', 1)->update(['number' => $serial + 1]);
-        return 'common/order.pdf';
+        return '/'.$path;
     }
 
     public function debt(Request $request) {
@@ -94,10 +95,10 @@ class OrderPrintController extends Controller
 
         $odf->saveToDisk(storage_path('app/order_cache.odt'));
 
-        $path = 'debt/'.$person.$serial.'.pdf';
-        word2pdf(storage_path('app/order_cache.odt'), iconv('UTF-8','GBK',public_path('order/'.$path)));
+        $path = 'storage/debt/'.$person.$serial.'.pdf';
+        word2pdf(storage_path('app/order_cache.odt'), iconv('UTF-8','GBK',public_path($path)));
         DB::table('common')->where('id', 2)->update(['number' => $serial + 1]);
-        return $path;
+        return '/'.$path;
     }
 
 }

@@ -8,7 +8,7 @@ function create(url) {
         url:url,
         data:$('#order').serialize(),
         success: function(data) {
-            document.getElementById("iPrint").src = "/order/" +  data;
+            document.getElementById("iPrint").src = data;
             var serial = parseInt($('#serial').val());
             $('#serial').val(serial + 1);
         }
