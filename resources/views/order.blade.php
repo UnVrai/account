@@ -20,16 +20,18 @@
                             </div>
                         @endif
 
-                        <form id="order" style="width: 200px;" method="post">
+                        <form id="order" style="width: 250px;" method="post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            编号：<input type="number" id="serial" name="serial" class="form-control" required="required">
-                            名称：
-                            <select name="name" id="name" class="form-control" required="required">
-                                <option value="粗沙">粗沙</option>
-                                <option value="毛石">毛石</option>
-                                <option value="公分石">公分石</option>
-                                <option value="细沙">细沙</option>
-                            </select>
+                            编号：<input type="number" id="serial" name="serial" value="{{ $serial }}" class="form-control" required="required">
+                            名称：<br>
+                            <input type="hidden" name="name" id="name" value="粗沙">
+                            <div class="btn-group">
+                                <button type="button" id="cs" class="btn btn-info" onclick="setName('粗沙', this)">粗沙</button>
+                                <button type="button" id="ms" class="btn btn-default" onclick="setName('毛石', this)">毛石</button>
+                                <button type="button" id="gfs" class="btn btn-default" onclick="setName('公分石', this)">公分石</button>
+                                <button type="button" id="xs" class="btn btn-default" onclick="setName('细沙', this)">细沙</button>
+                            </div>
+                            <br>
                             数量：
                             <input type="text" id="number" name="number" class="form-control" required="required" >
                             单价：
@@ -40,7 +42,7 @@
                             <input type="number" id="actual" name="actual" class="form-control" required="required">
                             <br>
                         </form>
-                        <button class="btn btn-lg btn-info" onclick="create()">打印</button>
+                        <button class="btn btn-lg btn-primary" onclick="create('/print/common')">打印</button>
                         <iframe id="iPrint" style="height: 0; width: 0; border: 0"></iframe>
                     </div>
                 </div>
@@ -48,6 +50,23 @@
         </div>
     </div>
     <script language="JavaScript">
+        function setName(name, btn) {
+            $('#cs').attr('class', 'btn btn-default');
+            $('#ms').attr('class', 'btn btn-default');
+            $('#gfs').attr('class', 'btn btn-default');
+            $('#xs').attr('class', 'btn btn-default');
+            $(btn).attr('class', 'btn btn-info');
+            $('#name').val(name);
+            if (name == '毛石') {
+                $('#price').val(45);
+            } else {
+                $('#price').val(70);
+            };
+            var total = $('#price').val() * $('#number').val();
+            $('#total').val(total);
+            total = total - total % 5;
+            $('#actual').val(total);
+        }
         function openPrint() {
             document.getElementById("iPrint").focus(); document.getElementById("iPrint").contentWindow.print();
         }
@@ -62,19 +81,10 @@
                     setTimeout('openPrint()', 500)
                 }
             }
-            $('#name').change(function(){
-                if ($(this).children('option:selected').val() == '毛石') {
-                    $('#price').val(40);
-                } else {
-                    $('#price').val(70);
-                };
-                var total = $('#price').val() * $('#number').val();
-                $('#total').val(total);
-                $('#actual').val(total);
-            })
             $('#number').bind('input', function () {
                 var total = $('#price').val() * $('#number').val();
                 $('#total').val(total);
+                total = total - total % 5;
                 $('#actual').val(total);
             })
         })

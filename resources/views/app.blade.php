@@ -7,7 +7,7 @@
 	<title>Laravel</title>
 
 
-	<link href="css/app.css" rel="stylesheet">
+	<link href="/css/app.css" rel="stylesheet">
 	<script src="/js/jquery-3.2.0.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/print.js"></script>
@@ -32,12 +32,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Account</a>
+				<a class="navbar-brand" href="/">Account</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					{{--<li><a href="/">商品管理</a></li>--}}
+					<li><a href="/create/common">调拨单</a></li>
+					<li><a href="/create/debt">欠单</a></li>
 					{{--@if(Auth::user()->permission == 3)--}}
 						{{--<li><a href="/account">人员管理</a></li>--}}
 					{{--@endif--}}

@@ -1,18 +1,16 @@
 /**
  * Created by UnVrai on 2017/4/6.
  */
-function create() {
+function create(url) {
 
     $.ajax({
         type: "POST",
-        url:'/orderPrint',
+        url:url,
         data:$('#order').serialize(),
         success: function(data) {
-            if (data == 'success') {
-                document.getElementById("iPrint").src = "./order/common/order.pdf";
-                var serial = parseInt($('#serial').val());
-                $('#serial').val(serial + 1);
-            }
+            document.getElementById("iPrint").src = "/order/" +  data;
+            var serial = parseInt($('#serial').val());
+            $('#serial').val(serial + 1);
         }
     });
 
