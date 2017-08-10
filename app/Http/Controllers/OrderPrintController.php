@@ -74,20 +74,22 @@ class OrderPrintController extends Controller
         $odf->setVars('Name', $input['name']);
         $odf->setVars('Number', $input['number'].'方');
         $odf->setVars('Price', $input['price']);
-        $odf->setVars('Total', $input['total']);
+        $total = $input['total'];
+        $odf->setVars('Total', $total);
         $odf->setVars('Debtor', $input['debtor']);
         $odf->setVars('Guarantor', $input['guarantor']);
-        $actual = $input['actual'];
-        $odf->setVars('Actual', $actual);
 
-        $actual = sprintf('%05s', $actual);
-        $odf->setVars('f', '零');
-        $odf->setVars('j', '零');
-        $odf->setVars('g', $this->dx[$actual[4]]);
-        $odf->setVars('s', $this->dx[$actual[3]]);
-        $odf->setVars('b', $this->dx[$actual[2]]);
-        $odf->setVars('q', $this->dx[$actual[1]]);
-        $odf->setVars('w', $this->dx[$actual[0]]);
+        $total = explode('.', $total);
+        $int = sprintf('%05s', $total[0]);
+        $decimal = sizeof($total) == 2 ? $total[1] : '';
+        $decimal = str_pad($decimal, 2, '0');
+        $odf->setVars('f', $this->dx[$decimal[1]]);
+        $odf->setVars('j', $this->dx[$decimal[0]]);
+        $odf->setVars('g', $this->dx[$int[4]]);
+        $odf->setVars('s', $this->dx[$int[3]]);
+        $odf->setVars('b', $this->dx[$int[2]]);
+        $odf->setVars('q', $this->dx[$int[1]]);
+        $odf->setVars('w', $this->dx[$int[0]]);
 
         $odf->setVars('y', date('Y'));
         $odf->setVars('m', date('m'));

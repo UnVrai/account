@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Debtor;
 use Illuminate\Http\Request;
+use DB;
 
 class DebtorController extends Controller
 {
@@ -14,7 +15,7 @@ class DebtorController extends Controller
      */
     public function index()
     {
-        $debtors = Debtor::all();
+        $debtors = Debtor::where('id', '>', 0)->orderBy(DB::raw('convert(person using gbk)'))->get();
         return $debtors;
     }
 

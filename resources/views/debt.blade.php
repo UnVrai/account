@@ -19,7 +19,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <div style="margin-right: 50px;width: 300px; height: 500px; float: left; overflow: auto" id="debtors">
+                        <div style="margin-right: 50px;width: 300px; height: 490px; float: left; overflow: auto" id="debtors">
                         </div>
                         <div style="width: 250px;float: left">
                             <form id="order" method="post">
@@ -40,9 +40,8 @@
                                 <input type="text" id="number" name="number" class="form-control">
                                 单价：
                                 <input type="number" id="price" name="price" class="form-control" value="70" readonly>
-                                <input type="hidden" id="total" name="total" class="form-control" readonly>
-                                实收：
-                                <input type="number" id="actual" name="actual" class="form-control" readonly>
+                                合计：
+                                <input type="text" id="total" name="total" class="form-control" readonly>
                                 欠款人：
                                 <input type="text" id="debtor" name="debtor" class="form-control" readonly>
                                 担保人：
@@ -125,8 +124,6 @@
         function setPrice() {
             var total = $('#price').val() * $('#number').val();
             $('#total').val(total);
-            total = total - total % 5;
-            $('#actual').val(total);
         }
     </script>
 @endsection
