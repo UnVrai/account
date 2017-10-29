@@ -13,8 +13,8 @@
 
 Route::get('create/common', 'CreateOrderController@common');
 Route::get('create/debt', 'CreateOrderController@debt');
-Route::post('print/common', 'OrderPrintController@common');
-Route::post('print/debt', 'OrderPrintController@debt');
+Route::post('print/common', 'OrderSaveController@common');
+Route::post('print/debt', 'OrderSaveController@debt');
 Route::resource('debtors', 'DebtorController');
 
 Route::get('/', function () {

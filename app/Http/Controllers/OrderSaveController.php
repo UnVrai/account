@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Debtor;
+use App\Order;
 use Illuminate\Http\Request;
 use Storage;
 use DB;
 
-require_once storage_path('app/library/odf.php');
+//require_once storage_path('app/library/odf.php');
 
 
-class OrderPrintController extends Controller
+class OrderSaveController extends Controller
 {
     public $dx = [ '0' => '零',
         '1' => '壹',
@@ -25,8 +26,39 @@ class OrderPrintController extends Controller
 
 
     public function common(Request $request) {
-        $odf = new \odf(storage_path('app/order_common.odt'));
         $input = $request->all();
+        $order = new Order;
+        $order->id = $input['serial'];
+        $order->name = $input['name'];
+        $order->number = $input['number'];
+        $order->price = $input['price'];
+        $order->total = $input['total'];
+        $order->actual = $input['actual'];
+        $order->save();
+
+//        $path = $this->commonToPdf($request->all());
+        $path = '';
+        DB::table('common')->where('name', 'commonSerial')->update(['value' => $input['serial'] + 1]);
+        return $path;
+    }
+
+
+    public function debt(Request $request) {
+        $input = $request->all();
+
+        $id = $input['id'];
+        $debtor = Debtor::find($id);
+        $debtor->number = $input['number'];
+        $debtor->save();
+
+//        $path = $this->deptToPdf($input);
+        $path = '';
+        DB::table('common')->where('name', 'debtSerial')->update(['number' => $input['serial'] + 1]);
+        return $path;
+    }
+
+    function commonToPdf($input) {
+        $odf = new \odf(storage_path('app/order_common.odt'));
 
         $serial = $input['serial'];
         $odf->setVars('Serial', sprintf('%07s', $serial));
@@ -49,22 +81,16 @@ class OrderPrintController extends Controller
         $odf->setVars('y', date('Y'));
         $odf->setVars('m', date('m'));
         $odf->setVars('d', date('d'));
-        
+
         $odf->saveToDisk(storage_path('app/order_cache.odt'));
 
         $path = 'storage/order.pdf';
         word2pdf(storage_path('app/order_cache.odt'), public_path($path));
-        DB::table('common')->where('id', 1)->update(['number' => $serial + 1]);
         return '/'.$path;
     }
 
-    public function debt(Request $request) {
-        $input = $request->all();
 
-        $id = $input['id'];
-        $debtor = Debtor::find($id);
-        $debtor->number = $input['number'];
-        $debtor->save();
+    function deptToPdf($input) {
 
         $odf = new \odf(storage_path('app/order_debt.odt'));
         $serial = $input['serial'];
@@ -99,7 +125,6 @@ class OrderPrintController extends Controller
 
         $path = 'storage/debt/'.$person.$serial.'.pdf';
         word2pdf(storage_path('app/order_cache.odt'), iconv('UTF-8','GBK',public_path($path)));
-        DB::table('common')->where('id', 2)->update(['number' => $serial + 1]);
         return '/'.$path;
     }
 

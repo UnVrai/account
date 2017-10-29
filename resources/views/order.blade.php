@@ -5,7 +5,9 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">调拨单</div>
+                    <div class="panel-heading">
+                        <h4>调拨单</h4>
+                    </div>
 
                     <div class="panel-body">
 
@@ -35,7 +37,7 @@
                             数量：
                             <input type="text" id="number" name="number" class="form-control" required="required" >
                             单价：
-                            <input type="number" id="price" name="price" class="form-control" required="required" value="70" readonly>
+                            <input type="number" id="price" name="price" class="form-control" required="required" value="{{ $price->csPrice }}" readonly>
                             合计：
                             <input type="number" id="total" name="total" class="form-control" required="required" readonly>
                             实收：
@@ -49,7 +51,18 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" id="csPrice" value="{{ $price->csPrice }}">
+    <input type="hidden" id="gfsPrice" value="{{ $price->gfsPrice }}">
+    <input type="hidden" id="xsPrice" value="{{ $price->xsPrice }}">
+    <input type="hidden" id="msPrice" value="{{ $price->msPrice }}">
+
     <script language="JavaScript">
+        var price = {};
+        price.毛石 = $('#msPrice').val();
+        price.粗沙 = $('#csPrice').val();
+        price.公分石 = $('#gfsPrice').val();
+        price.细沙 = $('#xsPrice').val();
         function setName(name, btn) {
             $('#cs').attr('class', 'btn btn-default');
             $('#ms').attr('class', 'btn btn-default');
