@@ -14,60 +14,70 @@ class Order extends Model
 
         static::saved(function($model) {
             $price = $model->actual;
+            $name = $model->name;
+            $number = $model->number;
             $year = date('Y');
             $month = date('m');
             $day = date('d');
-            $report = Report::where('date', $year.$month.$day)->first();
-            if ($report == null) {
-                $report = new Report;
-                $report->date = $year.$month.$day;
-                $report->type = 'd';
-            }
-            $report->order = $report->order + $price;
-            $report->total = $report->total + $price;
-            $report->save();
 
-            $report = Report::where('date', $year.$month)->first();
-            if ($report == null) {
-                $report = new Report;
-                $report->date = $year.$month;
-                $report->type = 'm';
-            }
-            $report->order = $report->order + $price;
-            $report->total = $report->total + $price;
-            $report->save();
+            Order::saveReport($year.$month.$day, 'd', $name, $number, $price);
+            Order::saveReport($year.$month, 'm', $name, $number, $price);
+            Order::saveReport($year, 'Y', $name, $number, $price);
 
-            $report = Report::where('date', $year)->first();
-            if ($report == null) {
-                $report = new Report;
-                $report->date = $year;
-                $report->type = 'Y';
-            }
-            $report->order = $report->order + $price;
-            $report->total = $report->total + $price;
-            $report->save();
         });
 
         static::deleted(function($model){
             $price = $model->actual;
+            $name = $model->name;
+            $number = $model->number;
             $year = date('Y');
             $month = date('m');
             $day = date('d');
 
-            $report = Report::where('date', $year.$month.$day)->first();
-            $report->order = $report->order - $price;
-            $report->total = $report->total - $price;
-            $report->save();
+            Order::deleteReport($year.$month.$day, $name, $number, $price);
+            Order::deleteReport($year.$month, $name, $number, $price);
+            Order::deleteReport($year, $name, $number, $price);
 
-            $report = Report::where('date', $year.$month)->first();
-            $report->order = $report->order - $price;
-            $report->total = $report->total - $price;
-            $report->save();
-
-            $report = Report::where('date', $year)->first();
-            $report->order = $report->order - $price;
-            $report->total = $report->total - $price;
-            $report->save();
         });
     }
+
+    static function saveReport($date, $dateType, $type, $number, $price) {
+        $report = Report::where('date', $date)->first();
+        if ($report == null) {
+            $report = new Report;
+            $report->date = $date;
+            $report->type = $dateType;
+        }
+        $report->order += $price;
+        $report->total += $price;
+        switch ($type) {
+            case '粗沙': $report->csNum += $number;
+                break;
+            case '公分石': $report->gfsNum += $number;
+                break;
+            case '细沙': $report->xsNum += $number;
+                break;
+            case '毛石': $report->msNum += $number;
+                break;
+        }
+        $report->save();
+    }
+
+    static function deleteReport($date, $type, $number, $price) {
+        $report = Report::where('date', $date)->first();
+        $report->order -= $price;
+        $report->total -= $price;
+        switch ($type) {
+            case '粗沙': $report->csNum -= $number;
+                break;
+            case '公分石': $report->gfsNum -= $number;
+                break;
+            case '细沙': $report->xsNum -= $number;
+                break;
+            case '毛石': $report->msNum -= $number;
+                break;
+        }
+        $report->save();
+    }
+
 }

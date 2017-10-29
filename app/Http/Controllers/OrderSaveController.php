@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Storage;
 use DB;
 
-//require_once storage_path('app/library/odf.php');
+require_once resource_path('assets/library/odf.php');
 
 
 class OrderSaveController extends Controller
@@ -36,8 +36,8 @@ class OrderSaveController extends Controller
         $order->actual = $input['actual'];
         $order->save();
 
-//        $path = $this->commonToPdf($request->all());
-        $path = '';
+        $path = $this->commonToPdf($request->all());
+//        $path = '';
         DB::table('common')->where('name', 'commonSerial')->update(['value' => $input['serial'] + 1]);
         return $path;
     }
@@ -58,7 +58,7 @@ class OrderSaveController extends Controller
     }
 
     function commonToPdf($input) {
-        $odf = new \odf(storage_path('app/order_common.odt'));
+        $odf = new \odf(resource_path('assets/order_common.odt'));
 
         $serial = $input['serial'];
         $odf->setVars('Serial', sprintf('%07s', $serial));
@@ -84,7 +84,7 @@ class OrderSaveController extends Controller
 
         $odf->saveToDisk(storage_path('app/order_cache.odt'));
 
-        $path = 'storage/order.pdf';
+        $path = 'order.pdf';
         word2pdf(storage_path('app/order_cache.odt'), public_path($path));
         return '/'.$path;
     }

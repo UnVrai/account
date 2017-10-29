@@ -17,6 +17,10 @@ class CreateReportsTable extends Migration
             $table->increments('id');
             $table->integer('date');
             $table->char('type');
+            $table->float('csNum')->default(0);
+            $table->float('gfsNum')->default(0);
+            $table->float('xsNum')->default(0);
+            $table->float('msNum')->default(0);
             $table->float('order')->default(0);
             $table->float('dept')->default(0);
             $table->float('income')->default(0);

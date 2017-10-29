@@ -44,7 +44,7 @@
                             <input type="number" id="actual" name="actual" class="form-control" required="required">
                             <br>
                         </form>
-                        <button class="btn btn-lg btn-primary" onclick="create('/print/common')">打印</button>
+                        <button class="btn btn-lg btn-primary" onclick="create('/print/common')">保存</button>
                         <iframe id="iPrint" style="height: 0; width: 0; border: 0"></iframe>
                     </div>
                 </div>
