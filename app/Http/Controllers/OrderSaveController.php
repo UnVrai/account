@@ -42,6 +42,9 @@ class OrderSaveController extends Controller
         return $path;
     }
 
+    public function commonPrint() {
+
+    }
 
     public function debt(Request $request) {
         $input = $request->all();
