@@ -37,11 +37,12 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="/create/common">调拨单</a></li>
+					<li><a href="/orders/create">调拨单</a></li>
 					<li><a href="/create/debt">记账单</a></li>
-					<li><a href="/create/debt">调拨单查询</a></li>
+					<li><a href="/orders">调拨单查询</a></li>
 					<li><a href="/create/debt">记账单查询</a></li>
 					<li><a href="/create/debt">客户</a></li>
+					<li><a href="/reports">账目</a></li>
 					{{--@if(Auth::user()->permission == 3)--}}
 						{{--<li><a href="/account">人员管理</a></li>--}}
 					{{--@endif--}}

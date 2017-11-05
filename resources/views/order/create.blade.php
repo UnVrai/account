@@ -23,7 +23,7 @@
                         @endif
 
                         <form id="order" style="width: 250px;" method="post">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                             编号：<input type="number" id="serial" name="serial" value="{{ $serial }}" class="form-control" required="required">
                             名称：<br>
                             <input type="hidden" name="name" id="name" value="粗沙">
@@ -44,7 +44,8 @@
                             <input type="number" id="actual" name="actual" class="form-control" required="required">
                             <br>
                         </form>
-                        <button class="btn btn-lg btn-primary" onclick="create('/print/common')">保存</button>
+
+                         <button class="btn btn-lg btn-primary" onclick="create('/orders', '/print/common')">保存</button>
                         <iframe id="iPrint" style="height: 0; width: 0; border: 0"></iframe>
                     </div>
                 </div>

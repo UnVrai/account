@@ -15,7 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('date');
+            $table->char('date');
             $table->char('type');
             $table->float('csNum')->default(0);
             $table->float('gfsNum')->default(0);

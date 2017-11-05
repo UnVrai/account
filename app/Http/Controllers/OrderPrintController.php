@@ -11,7 +11,7 @@ use DB;
 require_once resource_path('assets/library/odf.php');
 
 
-class OrderSaveController extends Controller
+class OrderPrintController extends Controller
 {
     public $dx = [ '0' => '零',
         '1' => '壹',
@@ -24,26 +24,9 @@ class OrderSaveController extends Controller
         '8' => '捌',
         '9' => '玖'];
 
-
     public function common(Request $request) {
-        $input = $request->all();
-        $order = new Order;
-        $order->id = $input['serial'];
-        $order->name = $input['name'];
-        $order->number = $input['number'];
-        $order->price = $input['price'];
-        $order->total = $input['total'];
-        $order->actual = $input['actual'];
-        $order->save();
-
-        $path = $this->commonToPdf($request->all());
-//        $path = '';
-        DB::table('common')->where('name', 'commonSerial')->update(['value' => $input['serial'] + 1]);
-        return $path;
-    }
-
-    public function commonPrint() {
-
+        $id = $request->get('id');
+        return '';
     }
 
     public function debt(Request $request) {

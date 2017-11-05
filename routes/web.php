@@ -13,10 +13,15 @@
 
 Route::get('create/common', 'CreateOrderController@common');
 Route::get('create/debt', 'CreateOrderController@debt');
-Route::post('print/common', 'OrderSaveController@common');
-Route::post('print/debt', 'OrderSaveController@debt');
+Route::post('print/common', 'OrderPrintController@common');
+Route::post('print/debt', 'OrderPrintController@debt');
+Route::resource('orders', 'CommonOrderController', ['except' => [
+    'show', 'edit', 'update'
+]]);
 Route::resource('debtors', 'DebtorController');
 
+Route::get('reports', 'ReportsController');
+
 Route::get('/', function () {
-    return redirect('create/common');
+    return redirect('orders/create');
 });

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
@@ -16,13 +17,11 @@ class Order extends Model
             $price = $model->actual;
             $name = $model->name;
             $number = $model->number;
-            $year = date('Y');
-            $month = date('m');
-            $day = date('d');
+            $date = $model->created_at;
 
-            Order::saveReport($year.$month.$day, 'd', $name, $number, $price);
-            Order::saveReport($year.$month, 'm', $name, $number, $price);
-            Order::saveReport($year, 'Y', $name, $number, $price);
+            Order::saveReport($date->format('Y-m-d'), 'd', $name, $number, $price);
+            Order::saveReport($date->format('Y-m'), 'm', $name, $number, $price);
+            Order::saveReport($date->format('Y'), 'Y', $name, $number, $price);
 
         });
 
@@ -30,13 +29,11 @@ class Order extends Model
             $price = $model->actual;
             $name = $model->name;
             $number = $model->number;
-            $year = date('Y');
-            $month = date('m');
-            $day = date('d');
+            $date = $model->created_at;
 
-            Order::deleteReport($year.$month.$day, $name, $number, $price);
-            Order::deleteReport($year.$month, $name, $number, $price);
-            Order::deleteReport($year, $name, $number, $price);
+            Order::deleteReport($date->format('Y-m-d'), $name, $number, $price);
+            Order::deleteReport($date->format('Y-m'), $name, $number, $price);
+            Order::deleteReport($date->format('Y'), $name, $number, $price);
 
         });
     }
