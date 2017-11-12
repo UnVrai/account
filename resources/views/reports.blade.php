@@ -26,6 +26,7 @@
                                 <th class="col-lg-1">记账单</th>
                                 <th class="col-lg-1">收入</th>
                                 <th class="col-lg-1">支出</th>
+                                <th class="col-lg-1">总计</th>
                             </tr>
                             @foreach ($reports as $report)
                                 <tr class="row">
@@ -55,6 +56,9 @@
                                     </td>
                                     <td>
                                         {{ $report->expense }}
+                                    </td>
+                                    <td>
+                                        {{ $report->total }}
                                     </td>
                                 </tr>
 

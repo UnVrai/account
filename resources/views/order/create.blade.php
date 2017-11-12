@@ -64,6 +64,8 @@
         price.粗沙 = $('#csPrice').val();
         price.公分石 = $('#gfsPrice').val();
         price.细沙 = $('#xsPrice').val();
+
+        $('#number').bind('input', setTotal);
         function setName(name, btn) {
             $('#cs').attr('class', 'btn btn-default');
             $('#ms').attr('class', 'btn btn-default');
@@ -71,36 +73,15 @@
             $('#xs').attr('class', 'btn btn-default');
             $(btn).attr('class', 'btn btn-info');
             $('#name').val(name);
-            if (name == '毛石') {
-                $('#price').val(45);
-            } else {
-                $('#price').val(70);
-            };
+            $('#price').val(price[name]);
+            setTotal();
+        }
+        function setTotal() {
             var total = $('#price').val() * $('#number').val();
             $('#total').val(total);
             total = total - total % 5;
             $('#actual').val(total);
         }
-        function openPrint() {
-            document.getElementById("iPrint").focus(); document.getElementById("iPrint").contentWindow.print();
-        }
-        $(document).ready(function(){
-            if (document.getElementById("iPrint").attachEvent) {
-
-                document.getElementById("iPrint").attachEvent("onload", function () {
-                    setTimeout('openPrint()', 500)
-                });
-            } else {
-                document.getElementById("iPrint").onload = function () {
-                    setTimeout('openPrint()', 500)
-                }
-            }
-            $('#number').bind('input', function () {
-                var total = $('#price').val() * $('#number').val();
-                $('#total').val(total);
-                total = total - total % 5;
-                $('#actual').val(total);
-            })
-        })
     </script>
+    <script src="/js/print.js"></script>
 @endsection

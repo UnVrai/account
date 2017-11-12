@@ -25,6 +25,15 @@ class DatabaseSeeder extends Seeder
             ['name' => 'xsPrice',
                 'value' => '70',
                 'type' => 'price'],
+            ['name' => '日常支出',
+                'value' => '0',
+                'type' => 'expenseType'],
+            ['name' => '工资',
+                'value' => '0',
+                'type' => 'expenseType'],
+            ['name' => '借款',
+                'value' => '1',
+                'type' => 'expenseType'],
         ]);
     }
 }

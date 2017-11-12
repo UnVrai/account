@@ -7,7 +7,6 @@
 
                     <div class="panel-body">
                         <h4 style="margin-left: 20px">调拨单记录</h4>
-                        <br>
 
                         <table class="table table-striped">
                             <tr class="row">
@@ -48,22 +47,22 @@
                                         {{ $order->created_at }}
                                     </td>
                                     <td>
-                                        <form id="delete" style="display: inline;">
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        </form>
-                                        <button type="submit" class="btn btn-danger" onclick="deleteOrder('{{ URL('orders/'.$order->id) }}')">删除</button>
+                                        <button class="btn btn-info" onclick="print('{{ $order->id }}', '/print/common')">打印</button>
+                                        <button class="btn btn-danger" onclick="deleteFuc('{{ URL('orders/'.$order->id) }}')">删除</button>
                                     </td>
                                 </tr>
 
                             @endforeach
                         </table>
+
+                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                        <iframe id="iPrint" style="height: 0; width: 0; border: 0"></iframe>
                         {{ $orders->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="/js/delete.js"></script>
+    <script src="/js/print.js"></script>
 @endsection
-
-<script src="/js/delete.js"></script>

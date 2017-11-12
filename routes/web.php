@@ -19,6 +19,9 @@ Route::resource('orders', 'CommonOrderController', ['except' => [
     'show', 'edit', 'update'
 ]]);
 Route::resource('debtors', 'DebtorController');
+Route::resource('expenses', 'ExpenseController', ['except' => [
+    'show', 'edit', 'update'
+]]);
 
 Route::get('reports', 'ReportsController');
 

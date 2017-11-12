@@ -31,3 +31,19 @@ function print(id, printUrl) {
     });
 
 }
+
+function openPrint() {
+    document.getElementById("iPrint").focus(); document.getElementById("iPrint").contentWindow.print();
+}
+$(document).ready(function(){
+    if (document.getElementById("iPrint").attachEvent) {
+
+        document.getElementById("iPrint").attachEvent("onload", function () {
+            setTimeout('openPrint()', 500)
+        });
+    } else {
+        document.getElementById("iPrint").onload = function () {
+            setTimeout('openPrint()', 500)
+        }
+    }
+})

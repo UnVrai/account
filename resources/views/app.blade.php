@@ -8,9 +8,9 @@
 
 
 	<link href="/css/app.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
 	<script src="/js/jquery-3.2.0.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/print.js"></script>
 
 	<!-- Fonts -->
 	{{--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>--}}
@@ -42,6 +42,7 @@
 					<li><a href="/orders">调拨单查询</a></li>
 					<li><a href="/create/debt">记账单查询</a></li>
 					<li><a href="/create/debt">客户</a></li>
+					<li><a href="/expenses">支出</a></li>
 					<li><a href="/reports">账目</a></li>
 					{{--@if(Auth::user()->permission == 3)--}}
 						{{--<li><a href="/account">人员管理</a></li>--}}
