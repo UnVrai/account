@@ -26,7 +26,7 @@ class OrderPrintController extends Controller
 
     public function common(Request $request) {
         $id = $request->get('id');
-        return '';
+        return $this->commonToPdf(Order::find($id));
     }
 
     public function debt(Request $request) {
@@ -43,16 +43,16 @@ class OrderPrintController extends Controller
         return $path;
     }
 
-    function commonToPdf($input) {
+    function commonToPdf($order) {
         $odf = new \odf(resource_path('assets/order_common.odt'));
 
-        $serial = $input['serial'];
+        $serial = $order->id;
         $odf->setVars('Serial', sprintf('%07s', $serial));
-        $odf->setVars('Name', $input['name']);
-        $odf->setVars('Number', $input['number'].'方');
-        $odf->setVars('Price', $input['price']);
-        $odf->setVars('Total', $input['total']);
-        $actual = $input['actual'];
+        $odf->setVars('Name', $order->name);
+        $odf->setVars('Number', $order->number.'方');
+        $odf->setVars('Price', $order->price);
+        $odf->setVars('Total', $order->total);
+        $actual = $order->actual;
         $odf->setVars('Actual', $actual);
 
         $actual = sprintf('%05s', $actual);
@@ -64,9 +64,9 @@ class OrderPrintController extends Controller
         $odf->setVars('q', $this->dx[$actual[1]]);
         $odf->setVars('w', $this->dx[$actual[0]]);
 
-        $odf->setVars('y', date('Y'));
-        $odf->setVars('m', date('m'));
-        $odf->setVars('d', date('d'));
+        $odf->setVars('y', $order->created_at->year);
+        $odf->setVars('m', $order->created_at->month);
+        $odf->setVars('d', $order->created_at->day);
 
         $odf->saveToDisk(storage_path('app/order_cache.odt'));
 
