@@ -30,17 +30,8 @@ class OrderPrintController extends Controller
     }
 
     public function debt(Request $request) {
-        $input = $request->all();
-
-        $id = $input['id'];
-        $debtor = Debtor::find($id);
-        $debtor->number = $input['number'];
-        $debtor->save();
-
-//        $path = $this->deptToPdf($input);
-        $path = '';
-        DB::table('common')->where('name', 'debtSerial')->update(['number' => $input['serial'] + 1]);
-        return $path;
+        $id = $request->get('id');
+        return '';
     }
 
     function commonToPdf($order) {

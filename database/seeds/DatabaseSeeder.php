@@ -31,9 +31,6 @@ class DatabaseSeeder extends Seeder
             ['name' => '工资',
                 'value' => '0',
                 'type' => 'expenseType'],
-            ['name' => '借款',
-                'value' => '1',
-                'type' => 'expenseType'],
         ]);
     }
 }

@@ -39,16 +39,16 @@
                                 数量：
                                 <input type="text" id="number" name="number" class="form-control">
                                 单价：
-                                <input type="number" id="price" name="price" class="form-control" value="70" readonly>
+                                <input type="number" id="price" name="price" class="form-control" value="{{ $price->csPrice }}" readonly>
                                 合计：
                                 <input type="text" id="total" name="total" class="form-control" readonly>
                                 欠款人：
                                 <input type="text" id="debtor" name="debtor" class="form-control" readonly>
                                 担保人：
-                                <input type="text" id="guarantor" name="guarantor" class="form-control" readonly>
+                                <input type="text" id="sponsor" name="sponsor" class="form-control" readonly>
                                 <br>
                             </form>
-                            <button class="btn btn-lg btn-primary" onclick="save()">打印</button>
+                            <button class="btn btn-lg btn-primary" onclick="save()">保存</button>
                             <iframe id="iPrint" style="height: 0; width: 0; border: 0"></iframe>
                         </div>
                     </div>
@@ -56,13 +56,25 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" id="csPrice" value="{{ $price->csPrice }}">
+    <input type="hidden" id="gfsPrice" value="{{ $price->gfsPrice }}">
+    <input type="hidden" id="xsPrice" value="{{ $price->xsPrice }}">
+    <input type="hidden" id="msPrice" value="{{ $price->msPrice }}">
+
     <script language="JavaScript">
+        var price = {};
+        price.毛石 = $('#msPrice').val();
+        price.粗沙 = $('#csPrice').val();
+        price.公分石 = $('#gfsPrice').val();
+        price.细沙 = $('#xsPrice').val();
+
         var debtors;
         var isSelect;
         getDebtors();
         function getDebtors() {
             $.ajax({
-                url: '/debtors',
+                url: '/debtors?isAll=true',
                 success: function (data) {
                     debtors = data;
                     setDebtors();
@@ -71,22 +83,22 @@
         }
         function save() {
             if (isSelect != null) {
-                create('/print/debt');
+                create('/debts', '/print/debt');
             }
         }
         function setDebtors() {
             $('#debtors').html('');
             debtors.forEach(function (debtor, i) {
-                $('#debtors').append('<a href="#" class="list-group-item" onclick="selectDebtor('+ i +', this)">'+ debtor.person + '</a>');
+                $('#debtors').append('<a href="#" class="list-group-item" onclick="selectDebtor('+ i +', this)">'+ debtor.name + '</a>');
             })
         }
         function selectDebtor(i, btn) {
             $(isSelect).removeClass('active');
             isSelect = btn;
             $(btn).addClass('active');
-            $('#person').val(debtors[i].person);
+            $('#person').val(debtors[i].name);
             $('#debtor').val(debtors[i].debtor);
-            $('#guarantor').val(debtors[i].guarantor);
+            $('#sponsor').val(debtors[i].sponsor);
             $('#number').val(debtors[i].number);
             $('#id').val(debtors[i].id);
             setPrice();
@@ -98,32 +110,15 @@
             $('#xs').attr('class', 'btn btn-default');
             $(btn).attr('class', 'btn btn-info');
             $('#name').val(name);
-            if (name == '毛石') {
-                $('#price').val(45);
-            } else {
-                $('#price').val(70);
-            };
+            $('#price').val(price[name]);
             setPrice();
         }
-        function openPrint() {
-            document.getElementById("iPrint").focus(); document.getElementById("iPrint").contentWindow.print();
-        }
-        $(document).ready(function(){
-            if (document.getElementById("iPrint").attachEvent) {
 
-                document.getElementById("iPrint").attachEvent("onload", function () {
-                    setTimeout('openPrint()', 500)
-                });
-            } else {
-                document.getElementById("iPrint").onload = function () {
-                    setTimeout('openPrint()', 500)
-                }
-            }
-            $('#number').bind('input', setPrice);
-        })
+        $('#number').bind('input', setPrice);
         function setPrice() {
             var total = $('#price').val() * $('#number').val();
             $('#total').val(total);
         }
     </script>
+    <script src="/js/print.js"></script>
 @endsection

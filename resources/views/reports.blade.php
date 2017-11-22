@@ -49,7 +49,7 @@
                                         {{ $report->order }}
                                     </td>
                                     <td>
-                                        {{ $report->dept }}
+                                        {{ $report->debt }}
                                     </td>
                                     <td>
                                         {{ $report->income }}
@@ -71,5 +71,3 @@
         </div>
     </div>
 @endsection
-
-<script src="/js/delete.js"></script>

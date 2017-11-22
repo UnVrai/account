@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Debtor;
 use Illuminate\Http\Request;
 use DB;
+use Redirect;
 
 class DebtorController extends Controller
 {
@@ -13,10 +14,13 @@ class DebtorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $debtors = Debtor::where('id', '>', 0)->orderBy(DB::raw('convert(person using gbk)'))->get();
-        return $debtors;
+        if ($request->get('isAll')) {
+            return Debtor::orderBy(DB::raw('convert(name using gbk)'))->get();
+        }
+        $debtors = Debtor::orderBy(DB::raw('convert(name using gbk)'))->paginate(8);
+        return view('debtor.index', ['debtors' => $debtors]);
     }
 
     /**
@@ -26,7 +30,7 @@ class DebtorController extends Controller
      */
     public function create()
     {
-        //
+        return view('debtor.create');
     }
 
     /**
@@ -37,7 +41,25 @@ class DebtorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $debtor = new Debtor();
+        $debtor->name = $request->get('name');
+        $debtor->tel = $request->get('tel');
+        $debtor->debtor = $request->get('debtor');
+        $debtor->sponsor = $request->get('sponsor');
+        $json = ['type' => $request->get('type'),
+            'discount' => $request->get('discount')];
+        if ($json['discount'] != '0') {
+            $json['cs'] = $request->get('cs');
+            $json['gfs'] = $request->get('gfs');
+            $json['xs'] = $request->get('xs');
+            $json['ms'] = $request->get('ms');
+        }
+        $debtor->discount = json_encode($json);
+        if ($debtor->save()) {
+            return Redirect::to('/debtors');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
     /**
@@ -59,7 +81,8 @@ class DebtorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $debtor = Debtor::find($id);
+        return view('debtor.edit', ['debtor' => $debtor, 'discount' => json_decode($debtor->discount)]);
     }
 
     /**
@@ -71,7 +94,25 @@ class DebtorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $debtor = Debtor::find($id);
+        $debtor->name = $request->get('name');
+        $debtor->tel = $request->get('tel');
+        $debtor->debtor = $request->get('debtor');
+        $debtor->sponsor = $request->get('sponsor');
+        $json = ['type' => $request->get('type'),
+            'discount' => $request->get('discount')];
+        if ($json['discount'] != '0') {
+            $json['cs'] = $request->get('cs');
+            $json['gfs'] = $request->get('gfs');
+            $json['xs'] = $request->get('xs');
+            $json['ms'] = $request->get('ms');
+        }
+        $debtor->discount = json_encode($json);
+        if ($debtor->save()) {
+            return Redirect::to('/debtors');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
     /**
@@ -82,6 +123,7 @@ class DebtorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $debtor = Debtor::find($id);
+        $debtor->delete();
     }
 }

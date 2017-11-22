@@ -24,7 +24,7 @@
 
                         <form id="order" style="width: 250px;" method="post">
                             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                            编号：<input type="number" id="serial" name="serial" value="{{ $serial }}" class="form-control" required="required">
+                            编号：<input type="number" id="serial" name="serial" value="{{ $serial }}" class="form-control" readonly>
                             名称：<br>
                             <input type="hidden" name="name" id="name" value="粗沙">
                             <div class="btn-group">
@@ -35,13 +35,13 @@
                             </div>
                             <br>
                             数量：
-                            <input type="text" id="number" name="number" class="form-control" required="required" >
+                            <input type="text" id="number" name="number" class="form-control" >
                             单价：
-                            <input type="number" id="price" name="price" class="form-control" required="required" value="{{ $price->csPrice }}" readonly>
+                            <input type="number" id="price" name="price" class="form-control" value="{{ $price->csPrice }}" readonly>
                             合计：
-                            <input type="number" id="total" name="total" class="form-control" required="required" readonly>
+                            <input type="number" id="total" name="total" class="form-control" readonly>
                             实收：
-                            <input type="number" id="actual" name="actual" class="form-control" required="required">
+                            <input type="number" id="actual" name="actual" class="form-control" >
                             <br>
                         </form>
 

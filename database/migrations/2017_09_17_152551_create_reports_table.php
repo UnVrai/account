@@ -22,7 +22,7 @@ class CreateReportsTable extends Migration
             $table->float('xsNum')->default(0);
             $table->float('msNum')->default(0);
             $table->float('order')->default(0);
-            $table->float('dept')->default(0);
+            $table->float('debt')->default(0);
             $table->float('income')->default(0);
             $table->float('expense')->default(0);
             $table->float('total')->default(0);

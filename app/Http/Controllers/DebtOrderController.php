@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Debt;
 use App\Common;
-use App\Order;
 use Illuminate\Http\Request;
-use DB;
 
-class CommonOrderController extends Controller
+class DebtOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::orderBy('id', 'desc')->paginate(8);
-        return view('order.index', ['orders' => $orders]);
+        $debts = Debt::orderBy('id', 'desc')->paginate(8);
+        return view('debt.index', ['debts' => $debts]);
     }
 
     /**
@@ -27,14 +26,14 @@ class CommonOrderController extends Controller
      */
     public function create()
     {
-        $order = Order::orderBy('id', 'desc')->first();
-        $serial = $order ? $order->id : 0;
+        $debt = Debt::orderBy('id', 'desc')->first();
+        $serial = $debt ? $debt->id : 0;
         $result = Common::where('type', 'price')->get();
         $price = [];
         foreach ($result as $i) {
             $price = array_add($price, $i->name, $i->value);
         }
-        return view('order.create')->with('serial', $serial + 1)->with('price', (object)$price);
+        return view('debt.create')->with('serial', $serial + 1)->with('price', (object)$price);
     }
 
     /**
@@ -46,15 +45,31 @@ class CommonOrderController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $order = new Order;
-        $order->id = $input['serial'];
-        $order->name = $input['name'];
-        $order->number = $input['number'];
-        $order->price = $input['price'];
-        $order->total = $input['total'];
-        $order->actual = $input['actual'];
-        if ($order->save()) {
-            return $order->id;
+        $debt = new Debt();
+        $debt->id = $input['serial'];
+        $debt->debtor_id = $input['id'];
+        $debt->name = $input['name'];
+        $debt->number = $input['number'];
+        $debt->price = $input['price'];
+        $debt->total = $input['total'];
+        $debt->person = $input['person'];
+        $debt->qkr = $input['debtor'];
+        $debt->sponsor = $input['sponsor'];
+        $debt->actual = $debt->total;
+        $discount = json_decode($debt->debtor->discount,true);
+        $name = ['粗沙' => 'cs',
+            '公分石' => 'gfs',
+            '细沙' => 'xs',
+            '毛石' => 'ms',];
+        if ($discount['type'] == 'qk' || $debt->debtor->account < 0) {
+            if ($discount['discount'] == 'dc') {
+                $debt->actual -= $discount[$name[$debt->name]];
+            } elseif ($discount['discount'] == 'dj') {
+                $debt->actual = $debt->number * $discount[$name[$debt->name]];
+            }
+        }
+        if ($debt->save()) {
+            return $debt->id;
         };
     }
 
@@ -77,7 +92,6 @@ class CommonOrderController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -100,7 +114,6 @@ class CommonOrderController extends Controller
      */
     public function destroy($id)
     {
-        $order = Order::find($id);
-        $order->delete();
+        //
     }
 }

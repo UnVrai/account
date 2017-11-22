@@ -7,39 +7,40 @@
 
                     <div class="panel-body">
                         <div style="float:right">
-                            <a href="{{ URL('expenses/create') }}" class="btn btn-lg btn-primary">新增</a>
+                            <a href="{{ URL('debtors/create') }}" class="btn btn-lg btn-primary">新增</a>
                         </div>
-                        <h4 style="margin-left: 20px">支出记录</h4>
+                        <h4 style="margin-left: 20px">客户</h4>
                         <br>
 
                         <table class="table table-striped">
                             <tr class="row">
-                                <th class="col-lg-2">时间</th>
-                                <th class="col-lg-1">金额</th>
-                                <th class="col-lg-1">类型</th>
-                                <th class="col-lg-1">经办人</th>
-                                <th class="col-lg-5">备注</th>
-                                <th class="col-lg-2">操作</th>
+                                <th class="col-lg-2">单位</th>
+                                <th class="col-lg-2">电话</th>
+                                <th class="col-lg-2">欠款人</th>
+                                <th class="col-lg-2">担保人</th>
+                                <th class="col-lg-2">欠款</th>
+                                <th class="col-lg-4">操作</th>
                             </tr>
-                            @foreach ($expenses as $expense)
+                            @foreach ($debtors as $debtor)
                                 <tr class="row">
                                     <td>
-                                        {{ $expense->created_at }}
+                                        {{ $debtor->name }}
                                     </td>
                                     <td>
-                                        {{ $expense->number }}
+                                        {{ $debtor->tel }}
                                     </td>
                                     <td>
-                                        {{ $expense->type }}
+                                        {{ $debtor->debtor }}
                                     </td>
                                     <td>
-                                        {{ $expense->person }}
+                                        {{ $debtor->sponsor }}
                                     </td>
                                     <td>
-                                        {{ $expense->description }}
+                                        {{ $debtor->account }}
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger" onclick="deleteFuc('{{ URL('expenses/'.$expense->id) }}')">删除</button>
+                                        <a href="{{ URL('debtors/'.$debtor->id.'/edit') }}" class="btn btn-success">编辑</a>
+                                        <button class="btn btn-danger" onclick="deleteFuc('{{ URL('debtors/'.$debtor->id) }}')">删除</button>
                                     </td>
                                 </tr>
 
@@ -47,7 +48,7 @@
                         </table>
 
                         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                        {{ $expenses->links() }}
+                        {{ $debtors->links() }}
                     </div>
                 </div>
             </div>
