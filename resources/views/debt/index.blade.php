@@ -6,7 +6,7 @@
                 <div class="panel panel-default">
 
                     <div class="panel-body">
-                        <h4 style="margin-left: 20px">调拨单记录</h4>
+                        <h4 style="margin-left: 20px">记账单记录</h4>
 
                         <table class="table table-striped">
                             <tr class="row">
@@ -47,8 +47,8 @@
                                         {{ $debt->created_at }}
                                     </td>
                                     <td>
-                                        <button class="btn btn-info" onclick="print('{{ $debt->id }}', '/print/common')">打印</button>
-                                        <button class="btn btn-danger" onclick="deleteFuc('{{ URL('orders/'.$debt->id) }}')">删除</button>
+                                        <button class="btn btn-info" onclick="print('{{ $debt->id }}', '/print/debt')">打印</button>
+                                        <button class="btn btn-danger" onclick="deleteFuc('{{ URL('debts/'.$debt->id) }}')">删除</button>
                                     </td>
                                 </tr>
 

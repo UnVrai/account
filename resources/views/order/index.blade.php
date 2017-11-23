@@ -16,7 +16,6 @@
                                 <th class="col-lg-1">价格</th>
                                 <th class="col-lg-1">总计</th>
                                 <th class="col-lg-1">实收</th>
-                                <th class="col-lg-1">开票人</th>
                                 <th class="col-lg-3">时间</th>
                                 <th class="col-lg-2">操作</th>
                             </tr>
@@ -39,9 +38,6 @@
                                     </td>
                                     <td>
                                         {{ $order->actual }}
-                                    </td>
-                                    <td>
-
                                     </td>
                                     <td>
                                         {{ $order->created_at }}

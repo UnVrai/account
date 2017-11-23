@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Debt;
 use App\Common;
+use App\Debtor;
 use Illuminate\Http\Request;
 
 class DebtOrderController extends Controller
@@ -15,7 +16,11 @@ class DebtOrderController extends Controller
      */
     public function index(Request $request)
     {
-        $debts = Debt::orderBy('id', 'desc')->paginate(8);
+        if ($request->get('id')) {
+            $debts = Debtor::find($request->get('id'))->debt()->orderBy('id', 'desc')->paginate(8);
+        } else {
+            $debts = Debt::orderBy('id', 'desc')->paginate(8);
+        }
         return view('debt.index', ['debts' => $debts]);
     }
 
@@ -114,6 +119,6 @@ class DebtOrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Debt::find($id)->delete();
     }
 }

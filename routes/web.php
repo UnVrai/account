@@ -24,8 +24,13 @@ Route::resource('debtors', 'DebtorController');
 Route::resource('expenses', 'ExpenseController', ['except' => [
     'show', 'edit', 'update'
 ]]);
+Route::resource('incomes', 'IncomeController');
 
 Route::get('reports', 'ReportsController');
+Route::get('repay/{id}', 'RepayController@create');
+Route::post('repay', 'RepayController@store');
+Route::get('setting', 'SettingController@show');
+Route::post('setting', 'SettingController@update');
 
 Route::get('/', function () {
     return redirect('orders/create');

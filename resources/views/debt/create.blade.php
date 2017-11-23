@@ -23,7 +23,7 @@
                         </div>
                         <div style="width: 250px;float: left">
                             <form id="order" method="post">
-                                {{ csrf_field() }}
+                                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                 编号：<input type="number" id="serial" name="serial" value="{{ $serial }}" class="form-control">
                                 <input type="hidden" id="person" name="person">
                                 <input type="hidden" id="id" name="id">
