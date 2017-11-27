@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">欠条</div>
+                    <div class="panel-heading">记账单</div>
 
                     <div class="panel-body">
 
@@ -24,7 +24,7 @@
                         <div style="width: 250px;float: left">
                             <form id="order" method="post">
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                                编号：<input type="number" id="serial" name="serial" value="{{ $serial }}" class="form-control">
+                                编号：<input type="number" id="serial" name="serial" value="{{ $serial }}" class="form-control" readonly>
                                 <input type="hidden" id="person" name="person">
                                 <input type="hidden" id="id" name="id">
                                 名称：<br>

@@ -53,11 +53,11 @@
                                 粗沙：
                                 <input type="text" name="cs" class="form-control"  value="{{ isset($discount->cs) ? $discount->cs : '' }}">
                                 公分石：
-                                <input type="text" name="gfs" class="form-control"  value="{{ isset($discount->gfs) ? $discount->cs : '' }}">
+                                <input type="text" name="gfs" class="form-control"  value="{{ isset($discount->gfs) ? $discount->gfs : '' }}">
                                 细沙：
-                                <input type="text" name="xs" class="form-control"  value="{{ isset($discount->xs) ? $discount->cs : '' }}">
+                                <input type="text" name="xs" class="form-control"  value="{{ isset($discount->xs) ? $discount->xs : '' }}">
                                 毛石：
-                                <input type="text" name="ms" class="form-control"  value="{{ isset($discount->ms) ? $discount->cs : '' }}">
+                                <input type="text" name="ms" class="form-control"  value="{{ isset($discount->ms) ? $discount->ms : '' }}">
 
                             </div>
                         </form>

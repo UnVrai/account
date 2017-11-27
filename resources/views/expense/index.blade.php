@@ -14,7 +14,7 @@
 
                         <table class="table table-striped">
                             <tr class="row">
-                                <th class="col-lg-2">时间</th>
+                                <th class="col-lg-3">时间</th>
                                 <th class="col-lg-1">金额</th>
                                 <th class="col-lg-1">类型</th>
                                 <th class="col-lg-1">经办人</th>

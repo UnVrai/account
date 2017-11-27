@@ -86,9 +86,11 @@ class IncomeController extends Controller
         if ($income->type == '还款') {
             $description = explode('冲账：', $income->description);
             $debtor = Debtor::find($description[0]);
-            $number = explode('还欠：', $description[1])[0];
-            $debtor->account += $number;
-            $debtor->save();
+            if ($debtor != null) {
+                $number = explode('还欠：', $description[1])[0];
+                $debtor->account += $number;
+                $debtor->save();
+            }
         }
         $income->delete();
     }

@@ -6,7 +6,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>支出</h4>
+                        <h4>还款</h4>
                     </div>
 
                     <div class="panel-body">

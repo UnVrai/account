@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Debt;
 use App\Debtor;
 use App\Order;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class OrderPrintController extends Controller
 
     public function debt(Request $request) {
         $id = $request->get('id');
-        return '';
+        return $this->deptToPdf(Debt::find($id));
     }
 
     function commonToPdf($order) {
@@ -67,20 +68,20 @@ class OrderPrintController extends Controller
     }
 
 
-    function deptToPdf($input) {
+    function deptToPdf($order) {
+        $odf = new \odf(resource_path('assets/order_debt.odt'));
 
-        $odf = new \odf(storage_path('app/order_debt.odt'));
-        $serial = $input['serial'];
+        $serial = $order->id;
         $odf->setVars('Serial', sprintf('%07s', $serial));
-        $person = $input['person'];
+        $person = $order->person;
         $odf->setVars('Person', $person);
-        $odf->setVars('Name', $input['name']);
-        $odf->setVars('Number', $input['number'].'方');
-        $odf->setVars('Price', $input['price']);
-        $total = $input['total'];
+        $odf->setVars('Name', $order->name);
+        $odf->setVars('Number', $order->number.'方');
+        $odf->setVars('Price', $order->price);
+        $total = $order->total;
         $odf->setVars('Total', $total);
-        $odf->setVars('Debtor', $input['debtor']);
-        $odf->setVars('Guarantor', $input['guarantor']);
+        $odf->setVars('Debtor', $order->qkr);
+        $odf->setVars('Sponsor', $order->sponsor);
 
         $total = explode('.', $total);
         $int = sprintf('%05s', $total[0]);
@@ -94,13 +95,13 @@ class OrderPrintController extends Controller
         $odf->setVars('q', $this->dx[$int[1]]);
         $odf->setVars('w', $this->dx[$int[0]]);
 
-        $odf->setVars('y', date('Y'));
-        $odf->setVars('m', date('m'));
-        $odf->setVars('d', date('d'));
+        $odf->setVars('y', $order->created_at->year);
+        $odf->setVars('m', $order->created_at->month);
+        $odf->setVars('d', $order->created_at->day);
 
         $odf->saveToDisk(storage_path('app/order_cache.odt'));
 
-        $path = 'storage/debt/'.$person.$serial.'.pdf';
+        $path = 'order.pdf';
         word2pdf(storage_path('app/order_cache.odt'), iconv('UTF-8','GBK',public_path($path)));
         return '/'.$path;
     }
