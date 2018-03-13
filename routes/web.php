@@ -20,6 +20,7 @@ Route::resource('orders', 'CommonOrderController', ['except' => [
 Route::resource('debts', 'DebtOrderController', ['except' => [
     'show', 'edit', 'update'
 ]]);
+Route::get('debts/{id}','DebtOrderController@index');
 Route::resource('debtors', 'DebtorController');
 Route::resource('expenses', 'ExpenseController', ['except' => [
     'show', 'edit', 'update'

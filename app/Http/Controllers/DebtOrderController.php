@@ -14,10 +14,10 @@ class DebtOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($id = 0)
     {
-        if ($request->get('id')) {
-            $debts = Debtor::find($request->get('id'))->debt()->orderBy('id', 'desc')->paginate(8);
+        if ($id) {
+            $debts = Debtor::find($id)->debt()->orderBy('id', 'desc')->paginate(8);
         } else {
             $debts = Debt::orderBy('id', 'desc')->paginate(8);
         }

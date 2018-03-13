@@ -39,7 +39,7 @@
                                         {{ $debtor->account }}
                                     </td>
                                     <td>
-                                        <a href="{{ URL('debts?id='.$debtor->id) }}" class="btn btn-info">查询</a>
+                                        <a href="{{ URL('debts/'.$debtor->id) }}" class="btn btn-info">查询</a>
                                         <a href="{{ URL('repay/'.$debtor->id) }}" class="btn btn-info">还款</a>
                                         <a href="{{ URL('debtors/'.$debtor->id.'/edit') }}" class="btn btn-success">编辑</a>
                                         <button class="btn btn-danger" onclick="deleteFuc('{{ URL('debtors/'.$debtor->id) }}')">删除</button>
