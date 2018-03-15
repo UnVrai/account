@@ -43,12 +43,18 @@ class Debt extends Model
 
     static function saveReport($date, $dateType, $type, $number, $price) {
         $report = Report::where('date', $date)->first();
+        $account = Account::where('date', $date)->first();
         if ($report == null) {
             $report = new Report;
             $report->date = $date;
             $report->type = $dateType;
         }
-        $report->debt += $price;
+        if ($account == null) {
+            $account = new Report;
+            $account->date = $date;
+            $account->type = $dateType;
+        }
+        $account->debt += $price;
         switch ($type) {
             case '粗沙': $report->csNum += $number;
                 break;
@@ -59,12 +65,14 @@ class Debt extends Model
             case '毛石': $report->msNum += $number;
                 break;
         }
+        $account->save();
         $report->save();
     }
 
     static function deleteReport($date, $type, $number, $price) {
         $report = Report::where('date', $date)->first();
-        $report->debt -= $price;
+        $account = Account::where('date', $date)->first();
+        $account->debt -= $price;
         switch ($type) {
             case '粗沙': $report->csNum -= $number;
                 break;
@@ -75,7 +83,7 @@ class Debt extends Model
             case '毛石': $report->msNum -= $number;
                 break;
         }
-        $report->save();
+        $account->save();
     }
 
     public function debtor() {

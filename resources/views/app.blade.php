@@ -44,7 +44,8 @@
 					<li><a href="/debtors">客户</a></li>
 					<li><a href="/incomes">收入</a></li>
 					<li><a href="/expenses">支出</a></li>
-					<li><a href="/reports">账目</a></li>
+					<li><a href="/account">账目</a></li>
+					<li><a href="/reports">记录</a></li>
 					<li><a href="/setting">设置</a></li>
 					{{--@if(Auth::user()->permission == 3)--}}
 						{{--<li><a href="/account">人员管理</a></li>--}}

@@ -28,6 +28,9 @@ Route::resource('expenses', 'ExpenseController', ['except' => [
 Route::resource('incomes', 'IncomeController');
 
 Route::get('reports', 'ReportsController');
+Route::get('reports/{type}', 'ReportsController');
+Route::get('account', 'AccountController');
+Route::get('account/{type}', 'AccountController');
 Route::get('repay/{id}', 'RepayController@create');
 Route::post('repay', 'RepayController@store');
 Route::get('setting', 'SettingController@show');

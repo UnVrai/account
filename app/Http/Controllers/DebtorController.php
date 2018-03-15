@@ -46,6 +46,7 @@ class DebtorController extends Controller
         $debtor->tel = $request->get('tel');
         $debtor->debtor = $request->get('debtor');
         $debtor->sponsor = $request->get('sponsor');
+        $debtor->max = $request->get('max');
         $json = ['type' => $request->get('type'),
             'discount' => $request->get('discount')];
         if ($json['discount'] != '0') {
@@ -99,6 +100,7 @@ class DebtorController extends Controller
         $debtor->tel = $request->get('tel');
         $debtor->debtor = $request->get('debtor');
         $debtor->sponsor = $request->get('sponsor');
+        $debtor->max = $request->get('max');
         $json = ['type' => $request->get('type'),
             'discount' => $request->get('discount')];
         if ($json['discount'] != '0') {

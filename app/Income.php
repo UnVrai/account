@@ -31,21 +31,21 @@ class Income extends Model
     }
 
     static function saveReport($date, $dateType, $price) {
-        $report = Report::where('date', $date)->first();
-        if ($report == null) {
-            $report = new Report;
-            $report->date = $date;
-            $report->type = $dateType;
+        $account = Account::where('date', $date)->first();
+        if ($account == null) {
+            $account = new Report;
+            $account->date = $date;
+            $account->type = $dateType;
         }
-        $report->income += $price;
-        $report->total += $price;
-        $report->save();
+        $account->income += $price;
+        $account->total += $price;
+        $account->save();
     }
 
     static function deleteReport($date, $price) {
-        $report = Report::where('date', $date)->first();
-        $report->income -= $price;
-        $report->total -= $price;
-        $report->save();
+        $account = Account::where('date', $date)->first();
+        $account->income -= $price;
+        $account->total -= $price;
+        $account->save();
     }
 }

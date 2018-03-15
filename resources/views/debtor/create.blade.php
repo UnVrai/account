@@ -33,6 +33,8 @@
                                 <input type="text" name="debtor" class="form-control" >
                                 担保人：
                                 <input type="text" name="sponsor" class="form-control" >
+                                欠款上限：
+                                <input type="number" name="max" class="form-control" >
                                 类型：
                                 <select name="type" class="form-control" required="required">
                                     <option value="qk" selected>欠款</option>
@@ -48,6 +50,7 @@
                                     <option value="0" selected>无</option>
                                     <option value="dc">单车</option>
                                     <option value="dj">单价</option>
+                                    <option value="sf">实方</option>
                                 </select>
                                 粗沙：
                                 <input type="text" name="cs" class="form-control" >

@@ -34,6 +34,8 @@
                                 <input type="text" name="debtor" class="form-control"  value="{{ $debtor->debtor }}" >
                                 担保人：
                                 <input type="text" name="sponsor" class="form-control"  value="{{ $debtor->sponsor }}" >
+                                欠款上限：
+                                <input type="number" name="max" class="form-control" value="{{ $debtor->max }}">
                                 类型：
                                 <select name="type" class="form-control" required="required">
                                     <option value="qk" {{ $discount->type == 'qk' ? 'selected' : ''}}>欠款</option>
@@ -49,6 +51,7 @@
                                     <option value="0" {{ $discount->discount == '0' ? 'selected' : ''}}>无</option>
                                     <option value="dc"{{ $discount->discount == 'dc' ? 'selected' : ''}}>单车</option>
                                     <option value="dj"{{ $discount->discount == 'dj' ? 'selected' : ''}}>单价</option>
+                                    <option value="sf"{{ $discount->discount == 'sf' ? 'selected' : ''}}>实方</option>
                                 </select>
                                 粗沙：
                                 <input type="text" name="cs" class="form-control"  value="{{ isset($discount->cs) ? $discount->cs : '' }}">

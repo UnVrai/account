@@ -13,7 +13,11 @@ function create(url, printUrl) {
                 $('#serial').val(serial + 1);
                 print(data, printUrl);
             }
+        },
+        error:function (data) {
+            alert(data.responseJSON.message);
         }
+        
     });
 }
 

@@ -40,13 +40,19 @@ class Order extends Model
 
     static function saveReport($date, $dateType, $type, $number, $price) {
         $report = Report::where('date', $date)->first();
+        $account = Account::where('date', $date)->first();
         if ($report == null) {
             $report = new Report;
             $report->date = $date;
             $report->type = $dateType;
         }
-        $report->order += $price;
-        $report->total += $price;
+        if ($account == null) {
+            $account = new Account();
+            $account->date = $date;
+            $account->type = $dateType;
+        }
+        $account->order += $price;
+        $account->total += $price;
         switch ($type) {
             case '粗沙': $report->csNum += $number;
                 break;
@@ -57,13 +63,15 @@ class Order extends Model
             case '毛石': $report->msNum += $number;
                 break;
         }
+        $account->save();
         $report->save();
     }
 
     static function deleteReport($date, $type, $number, $price) {
         $report = Report::where('date', $date)->first();
-        $report->order -= $price;
-        $report->total -= $price;
+        $account = Account::where('date', $date)->first();
+        $account->order -= $price;
+        $account->total -= $price;
         switch ($type) {
             case '粗沙': $report->csNum -= $number;
                 break;
@@ -74,6 +82,7 @@ class Order extends Model
             case '毛石': $report->msNum -= $number;
                 break;
         }
+        $account->save();
         $report->save();
     }
 
