@@ -8,9 +8,9 @@
                     <div class="panel-body">
                         <div style="float:right" class="btn-group">
                             <br>
-                            <a href="{{ URL('reports?type=d') }}" class="btn {{ $type == 'd' ? 'btn-info' : 'btn-default'}}">日</a>
-                            <a href="{{ URL('reports?type=m') }}" class="btn {{ $type == 'm' ? 'btn-info' : 'btn-default'}}">月</a>
-                            <a href="{{ URL('reports?type=Y') }}" class="btn {{ $type == 'Y' ? 'btn-info' : 'btn-default'}}">年</a>
+                            <a href="{{ URL('account\d') }}" class="btn {{ $type == 'd' ? 'btn-info' : 'btn-default'}}">日</a>
+                            <a href="{{ URL('account\m') }}" class="btn {{ $type == 'm' ? 'btn-info' : 'btn-default'}}">月</a>
+                            <a href="{{ URL('account\Y') }}" class="btn {{ $type == 'Y' ? 'btn-info' : 'btn-default'}}">年</a>
                         </div>
                         <h4 style="margin-left: 20px">账目</h4>
                         <br>
