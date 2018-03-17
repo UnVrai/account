@@ -19,7 +19,7 @@
                             <tr class="row">
                                 <th class="col-lg-2">时间</th>
                                 <th class="col-lg-1">现金</th>
-                                <th class="col-lg-1">记账单</th>
+                                <th class="col-lg-1">欠单</th>
                                 <th class="col-lg-1">收入</th>
                                 <th class="col-lg-1">支出</th>
                                 <th class="col-lg-1">总计</th>

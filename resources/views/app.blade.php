@@ -38,9 +38,9 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="/orders/create">调拨单</a></li>
-					<li><a href="/debts/create">记账单</a></li>
+					<li><a href="/debts/create">欠单</a></li>
 					<li><a href="/orders">调拨单查询</a></li>
-					<li><a href="/debts">记账单查询</a></li>
+					<li><a href="/debts">欠单查询</a></li>
 					<li><a href="/debtors">客户</a></li>
 					<li><a href="/incomes">收入</a></li>
 					<li><a href="/expenses">支出</a></li>

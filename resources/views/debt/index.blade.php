@@ -18,7 +18,7 @@
                                 <th class="col-lg-1">总计</th>
                                 <th class="col-lg-1">实收</th>
                                 <th class="col-lg-1">类型</th>
-                                <th class="col-lg-2">时间</th>
+                                <th width="18%">时间</th>
                                 <th class="col-lg-3">操作</th>
                             </tr>
                             @foreach ($debts as $debt)
