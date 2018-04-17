@@ -33,7 +33,7 @@ class Expense extends Model
     static function saveReport($date, $dateType, $price) {
         $account = Account::where('date', $date)->first();
         if ($account == null) {
-            $account = new Report;
+            $account = new Account;
             $account->date = $date;
             $account->type = $dateType;
         }
