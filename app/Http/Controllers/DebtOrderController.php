@@ -76,7 +76,7 @@ class DebtOrderController extends Controller
         if ($discount['type'] == 'qk' || $debt->debtor->account < 0) {
             if ($discount['discount'] == 'dc') {
                 $debt->actual -= $discount[$name[$debt->name]];
-            } elseif ($discount['discount'] == 'dj') {
+            } elseif ($discount['discount'] == 'dj' or $discount['discount'] == 'sf') {
                 $debt->actual = $debt->number * $discount[$name[$debt->name]];
             }
             if ($discount['discount'] == 'sf') {
