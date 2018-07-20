@@ -20,7 +20,8 @@ class DebtorController extends Controller
             return Debtor::orderBy(DB::raw('convert(name using gbk)'))->get();
         }
         $debtors = Debtor::orderBy(DB::raw('convert(name using gbk)'))->paginate(8);
-        return view('debtor.index', ['debtors' => $debtors]);
+        $total = DB::select('select sum(account) as total from debtors')[0]->total;
+        return view('debtor.index', ['debtors' => $debtors, 'total' => $total]);
     }
 
     /**

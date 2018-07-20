@@ -52,7 +52,7 @@ class Debt extends Model
             $report->type = $dateType;
         }
         if ($account == null) {
-            $account = new Report;
+            $account = new Account;
             $account->date = $date;
             $account->type = $dateType;
         }

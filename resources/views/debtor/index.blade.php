@@ -9,6 +9,9 @@
                         <div style="float:right">
                             <a href="{{ URL('debtors/create') }}" class="btn btn-lg btn-primary">新增</a>
                         </div>
+                        <div style="float:right; margin-right: 100px">
+                            <h3>总计：{{ $total }}</h3>
+                        </div>
                         <h4 style="margin-left: 20px">客户</h4>
                         <br>
 

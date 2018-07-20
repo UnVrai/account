@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->char('number');
             $table->integer('price');
             $table->char('total');
-            $table->integer('actual');
+            $table->float('actual');
             $table->char('people')->nullable();
             $table->timestamps();
         });
