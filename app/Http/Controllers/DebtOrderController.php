@@ -18,9 +18,9 @@ class DebtOrderController extends Controller
     public function index($id = 0)
     {
         if ($id) {
-            $debts = Debtor::find($id)->debt()->orderBy('id', 'desc')->paginate(8);
+            $debts = Debtor::find($id)->debt()->orderBy('id', 'desc')->withTrashed()->paginate(8);
         } else {
-            $debts = Debt::orderBy('id', 'desc')->paginate(8);
+            $debts = Debt::orderBy('id', 'desc')->withTrashed()->paginate(8);
         }
         return view('debt.index', ['debts' => $debts]);
     }
@@ -32,7 +32,7 @@ class DebtOrderController extends Controller
      */
     public function create()
     {
-        $debt = Debt::orderBy('id', 'desc')->first();
+        $debt = Debt::orderBy('id', 'desc')->withTrashed()->first();
         $serial = $debt ? $debt->id : 0;
         $result = Common::where('type', 'price')->get();
         $price = [];
@@ -52,7 +52,7 @@ class DebtOrderController extends Controller
     {
         $input = $request->all();
         $debt = new Debt();
-        $debt->id = $input['serial'];
+//        $debt->id = $input['serial'];
         $debt->debtor_id = $input['id'];
         if ($debt->debtor->max > 0 && $debt->debtor->account > $debt->debtor->max) {
             $error = [

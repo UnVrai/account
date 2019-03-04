@@ -16,7 +16,7 @@ class CommonOrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('id', 'desc')->paginate(8);
+        $orders = Order::orderBy('id', 'desc')->withTrashed()->paginate(8);
         return view('order.index', ['orders' => $orders]);
     }
 
@@ -27,7 +27,7 @@ class CommonOrderController extends Controller
      */
     public function create()
     {
-        $order = Order::orderBy('id', 'desc')->first();
+        $order = Order::orderBy('id', 'desc')->withTrashed()->first();
         $serial = $order ? $order->id : 0;
         $result = Common::where('type', 'price')->get();
         $price = [];
@@ -47,12 +47,12 @@ class CommonOrderController extends Controller
     {
         $input = $request->all();
         $order = new Order;
-        $order->id = $input['serial'];
+//        $order->id = $input['serial'];
         $order->name = $input['name'];
         $order->number = $input['number'];
         $order->price = $input['price'];
         $order->total = $input['total'];
-        $order->actual = $input['actual'];
+        $order->actual = $order->total;
         if ($order->save()) {
             return $order->id;
         };

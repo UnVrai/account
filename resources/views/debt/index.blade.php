@@ -22,7 +22,7 @@
                                 <th class="col-lg-3">操作</th>
                             </tr>
                             @foreach ($debts as $debt)
-                                <tr class="row">
+                                <tr class="row" @if ($debt->trashed())  style="color: red"  @endif>
                                     <td>
                                         {{ $debt->id }}
                                     </td>
@@ -51,8 +51,12 @@
                                         {{ $debt->created_at }}
                                     </td>
                                     <td>
+                                        @if($debt->trashed())
+                                            已删除
+                                        @else
                                         <button class="btn btn-info" onclick="print('{{ $debt->id }}', '/print/debt')">打印</button>
                                         <button class="btn btn-danger" onclick="deleteFuc('{{ URL('debts/'.$debt->id) }}')">删除</button>
+                                        @endif
                                     </td>
                                 </tr>
 

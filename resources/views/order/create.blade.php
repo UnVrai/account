@@ -40,8 +40,6 @@
                             <input type="number" id="price" name="price" class="form-control" value="{{ $price->csPrice }}" readonly>
                             合计：
                             <input type="number" id="total" name="total" class="form-control" readonly>
-                            实收：
-                            <input type="number" id="actual" name="actual" class="form-control" >
                             <br>
                         </form>
 

@@ -16,7 +16,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::orderBy('id', 'desc')->paginate(8);
+        $expenses = Expense::orderBy('id', 'desc')->withTrashed()->paginate(8);
         return view('expense.index', ['expenses' => $expenses]);
     }
 

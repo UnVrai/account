@@ -20,7 +20,7 @@
                                 <th class="col-lg-2">操作</th>
                             </tr>
                             @foreach ($orders as $order)
-                                <tr class="row">
+                                <tr class="row" @if ($order->trashed())  style="color: red"  @endif>
                                     <td>
                                         {{ $order->id }}
                                     </td>
@@ -43,8 +43,12 @@
                                         {{ $order->created_at }}
                                     </td>
                                     <td>
-                                        <button class="btn btn-info" onclick="print('{{ $order->id }}', '/print/common')">打印</button>
-                                        <button class="btn btn-danger" onclick="deleteFuc('{{ URL('orders/'.$order->id) }}')">删除</button>
+                                        @if($order->trashed())
+                                            已删除
+                                        @else
+                                            <button class="btn btn-info" onclick="print('{{ $order->id }}', '/print/common')">打印</button>
+                                            <button class="btn btn-danger" onclick="deleteFuc('{{ URL('orders/'.$order->id) }}')">删除</button>
+                                        @endif
                                     </td>
                                 </tr>
 

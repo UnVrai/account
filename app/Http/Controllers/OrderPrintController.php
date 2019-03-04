@@ -27,12 +27,16 @@ class OrderPrintController extends Controller
 
     public function common(Request $request) {
         $id = $request->get('id');
-        return $this->commonToPdf(Order::find($id));
+        $order = Order::find($id);
+        if ($order->trashed()) return "";
+        return $this->commonToPdf($order);
     }
 
     public function debt(Request $request) {
         $id = $request->get('id');
-        return $this->deptToPdf(Debt::find($id));
+        $order = Debt::find($id);
+        if ($order->trashed()) return "";
+        return $this->deptToPdf($order);
     }
 
     function commonToPdf($order) {
@@ -45,7 +49,7 @@ class OrderPrintController extends Controller
         $odf->setVars('Price', $order->price);
         $odf->setVars('Total', $order->total);
         $actual = $order->actual;
-        $odf->setVars('Actual', $actual);
+        $odf->setVars('Actual', "");
 
         $actual = sprintf('%05s', $actual);
         $odf->setVars('f', '零');

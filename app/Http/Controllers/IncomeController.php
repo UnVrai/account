@@ -15,7 +15,7 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $incomes = Income::orderBy('id', 'desc')->paginate(8);
+        $incomes = Income::orderBy('id', 'desc')->withTrashed()->paginate(8);
         return view('income.index', ['incomes' => $incomes]);
     }
 

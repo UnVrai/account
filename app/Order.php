@@ -2,13 +2,12 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    //
+    use SoftDeletes;
 
     public static function boot() {
         parent::boot();
