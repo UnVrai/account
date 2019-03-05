@@ -36,7 +36,7 @@
                                 <input type="text" name="sponsor" class="form-control"  value="{{ $debtor->sponsor }}" >
                                 欠款上限：
                                 <input type="number" name="max" class="form-control" value="{{ $debtor->max }}">
-                                结账日期：
+                                还款期限（天）：
                                 <input type="number" name="days" class="form-control" value="">
                                 <br>
                                 <button class="btn btn-lg btn-primary">保存</button>
