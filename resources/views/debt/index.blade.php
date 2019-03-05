@@ -74,3 +74,4 @@
     <script src="/js/delete.js"></script>
     <script src="/js/print.js"></script>
 @endsection
+

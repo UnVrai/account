@@ -7,6 +7,7 @@ use App\Common;
 use App\Debtor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DebtOrderController extends Controller
 {
@@ -57,6 +58,13 @@ class DebtOrderController extends Controller
         if ($debt->debtor->max > 0 && $debt->debtor->account > $debt->debtor->max) {
             $error = [
                 'message' => '欠款超过上限，无法开单！'
+            ];
+            return new JsonResponse($error, 403);
+        }
+        $date = Carbon::today();
+        if ($debt->debtor->next && $date->gte(Carbon::parse($debt->debtor->next))) {
+            $error = [
+                'message' => '上个月账单未结清，无法开单！'
             ];
             return new JsonResponse($error, 403);
         }

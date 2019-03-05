@@ -20,10 +20,14 @@
                                 <th class="col-lg-2">单位</th>
                                 <th class="col-lg-2">电话</th>
                                 <th class="col-lg-1">欠款人</th>
-                                <th class="col-lg-2">担保人</th>
+                                <th class="col-lg-1">担保人</th>
                                 <th class="col-lg-1">欠款</th>
+                                <th class="col-lg-1">期限</th>
                                 <th class="col-lg-4">操作</th>
                             </tr>
+                            @php
+                                $today = \Carbon\Carbon::today();
+                            @endphp
                             @foreach ($debtors as $debtor)
                                 <tr class="row">
                                     <td>
@@ -40,6 +44,13 @@
                                     </td>
                                     <td>
                                         {{ $debtor->account }}
+                                    </td>
+                                    <td>
+                                        @if($today->gte(\Carbon\Carbon::parse($debtor->next)))
+                                            超期
+                                        @else
+                                            {{ $debtor->next ? $today->diffInDays(\Carbon\Carbon::parse($debtor->next)) : '' }}
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ URL('debts/'.$debtor->id) }}" class="btn btn-info">查询</a>

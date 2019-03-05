@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddMaxToDebtors extends Migration
+class AddDateToDebtor extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddMaxToDebtors extends Migration
      */
     public function up()
     {
-        Schema::table('debtors', function (Blueprint $table){
-            $table->integer('max')->nullable();
+        Schema::table('debtors', function (Blueprint $table) {
+            $table->date('next')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddMaxToDebtors extends Migration
     public function down()
     {
         Schema::table('debtors', function (Blueprint $table){
-            $table->dropColumn('max');
+            $table->dropColumn('next');
         });
     }
 }

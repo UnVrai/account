@@ -13,16 +13,16 @@ class AddDeletedAt extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function ($table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->softDeletes();
         });
-        Schema::table('debts', function ($table) {
+        Schema::table('debts', function (Blueprint $table) {
             $table->softDeletes();
         });
-        Schema::table('expenses', function ($table) {
+        Schema::table('expenses', function (Blueprint $table) {
             $table->softDeletes();
         });
-        Schema::table('incomes', function ($table) {
+        Schema::table('incomes', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
@@ -34,16 +34,16 @@ class AddDeletedAt extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function ($table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn('deleted_at');
         });
-        Schema::table('debts', function ($table) {
+        Schema::table('debts', function (Blueprint $table) {
             $table->dropColumn('deleted_at');
         });
-        Schema::table('expenses', function ($table) {
+        Schema::table('expenses', function (Blueprint $table) {
             $table->dropColumn('deleted_at');
         });
-        Schema::table('incomes', function ($table) {
+        Schema::table('incomes', function (Blueprint $table) {
             $table->dropColumn('deleted_at');
         });
     }

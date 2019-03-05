@@ -35,16 +35,18 @@
                                 <input type="text" name="sponsor" class="form-control" >
                                 欠款上限：
                                 <input type="number" name="max" class="form-control" >
-                                类型：
-                                <select name="type" class="form-control" required="required">
-                                    <option value="qk" selected>欠款</option>
-                                    <option value="yfk">预付款</option>
-                                </select>
+                                还款期限（天）：
+                                <input type="number" name="days" class="form-control" >
                                 <br>
                                 <button class="btn btn-lg btn-primary">保存</button>
                                 <a href="/debtors" class="btn btn-lg btn-warning"  style="margin-left: 50px" >返回</a>
                                 </div>
                             <div style="width: 40%;margin-right: 100px;float: right">
+                                类型：
+                                <select name="type" class="form-control" required="required">
+                                    <option value="qk" selected>欠款</option>
+                                    <option value="yfk">预付款</option>
+                                </select>
                                 优惠：
                                 <select name="discount" class="form-control">
                                     <option value="0" selected>无</option>

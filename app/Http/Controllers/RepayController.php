@@ -23,6 +23,7 @@ class RepayController extends Controller
         $debtor = Debtor::find($input['id']);
         $debtor->account -= $input['number'];
         $income->description = $debtor->id.'冲账：'.$input['number'].'还欠：'.$debtor->account;
+        $debtor->next = null;
         $debtor->save();
         if ($income->save()) {
             return Redirect::to('debtors');

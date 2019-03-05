@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Debtor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 use Redirect;
@@ -48,6 +49,12 @@ class DebtorController extends Controller
         $debtor->debtor = $request->get('debtor');
         $debtor->sponsor = $request->get('sponsor');
         $debtor->max = $request->get('max');
+        $days = $request->get('days');
+        if ($days != '') {
+            $next = Carbon::today();
+            $next->addDay($days);
+            $debtor->next = $next;
+        }
         $json = ['type' => $request->get('type'),
             'discount' => $request->get('discount')];
         if ($json['discount'] != '0') {
@@ -102,6 +109,12 @@ class DebtorController extends Controller
         $debtor->debtor = $request->get('debtor');
         $debtor->sponsor = $request->get('sponsor');
         $debtor->max = $request->get('max');
+        $days = $request->get('days');
+        if ($days != '') {
+            $next = Carbon::today();
+            $next->addDay($days);
+            $debtor->next = $next;
+        }
         $json = ['type' => $request->get('type'),
             'discount' => $request->get('discount')];
         if ($json['discount'] != '0') {
