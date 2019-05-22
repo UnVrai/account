@@ -140,7 +140,7 @@ class DebtorController extends Controller
     public function destroy($id)
     {
         $debtor = Debtor::find($id);
-        if ($debtor->account != 0) {
+        if ($debtor->account == 0) {
             $debtor->delete();
         }
     }
