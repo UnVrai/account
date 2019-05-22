@@ -27,7 +27,7 @@
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="PUT">
                                 单位：
-                                <input type="text" name="name" class="form-control" value="{{ $debtor->name }}" >
+                                <input type="text" name="name" class="form-control" readonly value="{{ $debtor->name }}" >
                                 电话：
                                 <input type="text" name="tel" class="form-control"  value="{{ $debtor->tel }}" >
                                 欠款人：
