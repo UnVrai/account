@@ -46,7 +46,7 @@
                                         @if($order->trashed())
                                             已删除
                                         @else
-                                            <button class="btn btn-info" onclick="print('{{ $order->id }}', '/print/common')">打印</button>
+                                            {{--<button class="btn btn-info" onclick="print('{{ $order->id }}', '/print/common')">打印</button>--}}
                                             <button class="btn btn-danger" onclick="deleteFuc('{{ URL('orders/'.$order->id) }}')">删除</button>
                                         @endif
                                     </td>
