@@ -75,7 +75,7 @@ class DebtOrderController extends Controller
         $debt->person = $input['person'];
         $debt->qkr = $input['debtor'];
         $debt->sponsor = $input['sponsor'];
-        $debt->actual = $debt->total;
+        $debt->actual = round($debt->total);
         $discount = json_decode($debt->debtor->discount,true);
         $name = ['粗沙' => 'cs',
             '公分石' => 'gfs',

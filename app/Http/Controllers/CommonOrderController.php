@@ -52,7 +52,7 @@ class CommonOrderController extends Controller
         $order->number = $input['number'];
         $order->price = $input['price'];
         $order->total = $input['total'];
-        $order->actual = $order->total;
+        $order->actual = round($order->total);
         if ($order->save()) {
             return $order->id;
         };
